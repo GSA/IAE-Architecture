@@ -1,1 +1,1 @@
-![Image of FSRS Post-Award 2.3](https://github.com/SiloSmashers/iae-global/blob/master/as-is/architecture/business-architecture/extension-diagrams/process-flow-diagrams/FSRS_Post_Award%20-%202.3_ReportSubawardDollarsPerFFATARequirements_CCB.png)
+![Image of FSRS Post-Award 2.3](../../../images/FSRS_Post_Award%20-%202.3_ReportSubawardDollarsPerFFATARequirements_CCB.png)
