@@ -1,1 +1,1 @@
-This file describes the Annual Demand graphic that supports a Service Contract.
+![Image of the Annual Demand Usage Curve](../../images/IAE Annual Demand Pattern.png)
