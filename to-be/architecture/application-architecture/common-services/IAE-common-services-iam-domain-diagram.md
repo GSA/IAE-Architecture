@@ -1,19 +1,19 @@
 ![Image of the IAM Domain Diagram](../../images/IAE-common-services-iam-domain-diagram.png)
-#IAM Domain Diagram (Interpretations)
-##Business Class Modeler: Topic: IAM Domain Diagram
-*Created: 4/4/2014 1:07:13 PM
-*Changed: 4/4/2014 1:37:44 PM by Local User:PamelaAMiller (Owner of local repository)
-*Version: 0
-*Status: Draft
-##Authenticated Identity
+##IAM Domain Diagram (Interpretations)
+###Business Class Modeler: Topic: IAM Domain Diagram
+* Created: 4/4/2014 1:07:13 PM
+* Changed: 4/4/2014 1:37:44 PM by Local User:PamelaAMiller (Owner of local repository)
+* Version: 0
+* Status: Draft
+###Authenticated Identity
 Type: Concrete
 For each Authenticated Identity:
  we will find a Token it generates
-Authentication Entry Point
+###Authentication Entry Point
 The location that the service is accessed by the Clients.
 Type: Concrete
 For each Authentication Entry Point:
- we will find an Identity it is associated with
+ * we will find an Identity it is associated with
 Credential
 The combination of the identity and factor being authentication.
 Type: Concrete
