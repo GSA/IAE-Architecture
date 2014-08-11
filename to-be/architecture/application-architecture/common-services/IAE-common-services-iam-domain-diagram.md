@@ -5,15 +5,18 @@
 * Changed: 4/4/2014 1:37:44 PM by Local User:PamelaAMiller (Owner of local repository)
 * Version: 0
 * Status: Draft
+
 ### Authenticated Identity
 Type: Concrete
 For each Authenticated Identity:
  we will find a Token it generates
+
 ### Authentication Entry Point
 The location that the service is accessed by the Clients.
 Type: Concrete
 For each Authentication Entry Point:
  * we will find an Identity it is associated with
+
 ### Credential
 The combination of the identity and factor being authentication.
 Type: Concrete
