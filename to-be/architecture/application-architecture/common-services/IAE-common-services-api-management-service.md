@@ -1,1 +1,1 @@
-![Image of the Annual Demand Usage Curve](../../images/IAE-common-services-api-management-service.png)
+![Image of the API Management Service](../../images/IAE-common-services-api-management-service.png)
