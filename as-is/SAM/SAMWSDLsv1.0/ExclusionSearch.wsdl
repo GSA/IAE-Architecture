@@ -1,0 +1,468 @@
+<definitions name="ExclusionSearchServiceBeanService" targetNamespace="http://www.sam.gov" xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:ns1="https://orcaxml.bpn.gov/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://www.sam.gov" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+ <types>
+  <xs:schema targetNamespace="https://orcaxml.bpn.gov/" version="1.0" xmlns:tns="https://orcaxml.bpn.gov/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+   <xs:element name="ApplicationException" type="tns:ApplicationException"/>
+   <xs:element name="SystemException" type="tns:SystemException"/>
+   <xs:complexType name="ApplicationException">
+    <xs:sequence>
+     <xs:element minOccurs="0" name="errorCode" type="xs:string"/>
+     <xs:element minOccurs="0" name="message" type="xs:string"/>
+    </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="SystemException">
+    <xs:sequence>
+     <xs:element minOccurs="0" name="errorCode" type="xs:string"/>
+     <xs:element minOccurs="0" name="message" type="xs:string"/>
+    </xs:sequence>
+   </xs:complexType>
+  </xs:schema>
+  <xs:schema targetNamespace="http://www.sam.gov" version="1.0" xmlns:ns1="https://orcaxml.bpn.gov/" xmlns:tns="http://www.sam.gov" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+   <xs:import namespace="https://orcaxml.bpn.gov/"/>
+   <xs:element name="ApplicationException" nillable="true" type="ns1:ApplicationException"/>
+   <xs:element name="SystemException" nillable="true" type="ns1:SystemException"/>
+   <xs:complexType name="OperationSearchType">
+    <xs:complexContent>
+     <xs:extension base="tns:ExclusionValueObjectType">
+      <xs:sequence>
+       <xs:element minOccurs="0" name="actionDate" nillable="true" type="tns:ExclusionDateRangeType"/>
+       <xs:element maxOccurs="unbounded" minOccurs="0" name="agency" nillable="true" type="xs:string"/>
+       <xs:element minOccurs="0" name="agencyUIDs" nillable="true" type="tns:listOfExclusionAgencyUIDType"/>
+       <xs:element maxOccurs="unbounded" minOccurs="0" name="classification" nillable="true" type="xs:string"/>
+       <xs:element maxOccurs="unbounded" minOccurs="0" name="country" nillable="true" type="xs:string"/>
+       <xs:element minOccurs="0" name="createDate" nillable="true" type="tns:ExclusionDateRangeType"/>
+       <xs:element minOccurs="0" name="deleteDate" nillable="true" type="tns:ExclusionDateRangeType"/>
+       <xs:element minOccurs="0" name="DUNSNumber" nillable="true" type="xs:string"/>
+       <xs:element minOccurs="0" name="exactName" nillable="true" type="xs:string"/>
+       <xs:element maxOccurs="unbounded" minOccurs="0" name="exclusionType" nillable="true" type="xs:string"/>
+       <xs:element minOccurs="0" name="includeArchive" nillable="true" type="xs:string"/>
+       <xs:element minOccurs="0" name="first" nillable="true" type="xs:string"/>
+       <xs:element minOccurs="0" name="last" nillable="true" type="xs:string"/>
+       <xs:element minOccurs="0" name="middle" nillable="true" type="xs:string"/>
+       <xs:element minOccurs="0" name="modifyDate" nillable="true" type="tns:ExclusionDateRangeType"/>
+       <xs:element minOccurs="0" name="name" nillable="true" type="xs:string"/>
+       <xs:element minOccurs="0" name="partialName" nillable="true" type="xs:string"/>
+       <xs:element minOccurs="0" name="prefix" nillable="true" type="xs:string"/>
+       <xs:element maxOccurs="unbounded" minOccurs="0" name="exclusionProgram" nillable="true" type="xs:string"/>
+       <xs:element minOccurs="0" name="ssnOrTin" type="xs:string"/>
+       <xs:element maxOccurs="unbounded" minOccurs="0" name="state" nillable="true" type="xs:string"/>
+       <xs:element minOccurs="0" name="suffix" nillable="true" type="xs:string"/>
+       <xs:element minOccurs="0" name="termDate" nillable="true" type="tns:ExclusionDateRangeType"/>
+       <xs:element minOccurs="0" name="periodicity" nillable="true" type="xs:string"/>
+      </xs:sequence>
+     </xs:extension>
+    </xs:complexContent>
+   </xs:complexType>
+   <xs:complexType abstract="true" name="ExclusionValueObjectType">
+    <xs:sequence/>
+   </xs:complexType>
+   <xs:complexType name="ExclusionDateRangeType">
+    <xs:sequence>
+     <xs:element minOccurs="0" name="endDate" nillable="true" type="xs:dateTime"/>
+     <xs:element minOccurs="0" name="startDate" nillable="true" type="xs:dateTime"/>
+    </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="listOfExclusionAgencyUIDType">
+    <xs:sequence>
+     <xs:element maxOccurs="unbounded" minOccurs="0" name="agencyUID" nillable="true" type="tns:ExclusionAgencyUIDType"/>
+    </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="ExclusionAgencyUIDType">
+    <xs:sequence>
+     <xs:element minOccurs="0" name="uidType" nillable="true" type="xs:string"/>
+     <xs:element minOccurs="0" name="uidValue" nillable="true" type="xs:string"/>
+    </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="OperationSearchCountType">
+    <xs:complexContent>
+     <xs:extension base="tns:ExclusionValueObjectType">
+      <xs:sequence>
+       <xs:element maxOccurs="unbounded" minOccurs="0" name="agency" nillable="true" type="xs:string"/>
+       <xs:element maxOccurs="unbounded" minOccurs="0" name="program" nillable="true" type="xs:string"/>
+       <xs:element maxOccurs="unbounded" minOccurs="0" name="classification" nillable="true" type="xs:string"/>
+       <xs:element maxOccurs="unbounded" minOccurs="0" name="exclusionType" nillable="true" type="xs:string"/>
+      </xs:sequence>
+     </xs:extension>
+    </xs:complexContent>
+   </xs:complexType>
+   <xs:complexType name="OperationExSSNSearchType">
+    <xs:complexContent>
+     <xs:extension base="tns:ExclusionValueObjectType">
+      <xs:sequence>
+       <xs:element minOccurs="0" name="exactName" nillable="true" type="xs:string"/>
+       <xs:element minOccurs="0" name="ssnOrTin" type="xs:string"/>
+       <xs:element minOccurs="0" name="includeArchive" nillable="true" type="xs:string"/>
+      </xs:sequence>
+     </xs:extension>
+    </xs:complexContent>
+   </xs:complexType>
+   <xs:complexType name="ExclusionAddressType">
+    <xs:complexContent>
+     <xs:extension base="tns:ExclusionValueObjectType">
+      <xs:sequence>
+       <xs:element minOccurs="0" name="street1" nillable="true" type="xs:string"/>
+       <xs:element minOccurs="0" name="street2" nillable="true" type="xs:string"/>
+       <xs:element minOccurs="0" name="city" nillable="true" type="xs:string"/>
+       <xs:element minOccurs="0" name="state" nillable="true" type="xs:string"/>
+       <xs:element minOccurs="0" name="province" nillable="true" type="xs:string"/>
+       <xs:element minOccurs="0" name="zipOrPostalcode" nillable="true" type="xs:string"/>
+       <xs:element minOccurs="0" name="country" nillable="true" type="xs:string"/>
+      </xs:sequence>
+     </xs:extension>
+    </xs:complexContent>
+   </xs:complexType>
+   <xs:complexType name="OperationExclusionHistoryType">
+    <xs:complexContent>
+     <xs:extension base="tns:ExclusionValueObjectType">
+      <xs:sequence>
+       <xs:element minOccurs="0" name="actionDate" nillable="true" type="tns:ExclusionDateRangeType"/>
+       <xs:element maxOccurs="unbounded" minOccurs="0" name="agency" nillable="true" type="xs:string"/>
+       <xs:element minOccurs="0" name="periodicity" nillable="true" type="xs:string"/>
+      </xs:sequence>
+     </xs:extension>
+    </xs:complexContent>
+   </xs:complexType>
+   <xs:complexType name="ExclusionActionType">
+    <xs:complexContent>
+     <xs:extension base="tns:ExclusionValueObjectType">
+      <xs:sequence>
+       <xs:element minOccurs="0" name="createDate" nillable="true" type="xs:dateTime"/>
+       <xs:element minOccurs="0" name="updateDate" nillable="true" type="xs:dateTime"/>
+       <xs:element minOccurs="0" name="activeDate" nillable="true" type="xs:dateTime"/>
+       <xs:element minOccurs="0" name="actionStatus" nillable="true" type="xs:string"/>
+       <xs:element minOccurs="0" name="agencyComponent" nillable="true" type="xs:string"/>
+       <xs:element minOccurs="0" name="termDate" nillable="true" type="xs:dateTime"/>
+       <xs:element minOccurs="0" name="termType" nillable="true" type="xs:string"/>
+      </xs:sequence>
+     </xs:extension>
+    </xs:complexContent>
+   </xs:complexType>
+   <xs:complexType name="ExclusionSearchResponseType">
+    <xs:sequence>
+     <xs:element minOccurs="0" name="transactionInformation" nillable="true" type="tns:exTransactionInfoType"/>
+     <xs:element maxOccurs="unbounded" minOccurs="0" name="excludedEntity" nillable="true" type="tns:ExclusionSearchResultType"/>
+    </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="exTransactionInfoType">
+    <xs:complexContent>
+     <xs:extension base="tns:ExclusionSearchResponseBaseType">
+      <xs:sequence/>
+     </xs:extension>
+    </xs:complexContent>
+   </xs:complexType>
+   <xs:complexType name="ExclusionSearchResponseBaseType">
+    <xs:sequence>
+     <xs:element default="0" minOccurs="0" name="count" type="xs:long"/>
+     <xs:element default="" minOccurs="0" name="errorMessage" nillable="true" type="xs:string"/>
+     <xs:element default="true" minOccurs="0" name="successful" type="xs:boolean"/>
+    </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="ExclusionSearchResultType">
+    <xs:sequence>
+     <xs:element name="classification" nillable="true" type="xs:string"/>
+     <xs:element minOccurs="0" name="exclusionType" nillable="true" type="xs:string"/>
+     <xs:element minOccurs="0" name="exclusionProgram" nillable="true" type="xs:string"/>
+     <xs:element name="entityIdentification" type="tns:EntityIdentificationType"/>
+     <xs:element maxOccurs="unbounded" minOccurs="0" name="comments" nillable="true" type="xs:string"/>
+     <xs:element maxOccurs="unbounded" minOccurs="0" name="ofacProgram" nillable="true" type="xs:string"/>
+     <xs:element minOccurs="0" name="listOfactions" nillable="true" type="tns:listOfExclusionsActionType"/>
+     <xs:element maxOccurs="unbounded" minOccurs="0" name="address" nillable="true" type="tns:ExclusionAddressType"/>
+    </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="EntityIdentificationType">
+    <xs:sequence>
+     <xs:element minOccurs="0" name="DUNSNumber" nillable="true" type="xs:string"/>
+     <xs:element name="name" nillable="true" type="xs:string"/>
+     <xs:element name="prefix" nillable="true" type="xs:string"/>
+     <xs:element name="first" nillable="true" type="xs:string"/>
+     <xs:element name="middle" nillable="true" type="xs:string"/>
+     <xs:element name="last" nillable="true" type="xs:string"/>
+     <xs:element name="suffix" nillable="true" type="xs:string"/>
+     <xs:element name="npi" nillable="true" type="xs:string"/>
+     <xs:element maxOccurs="unbounded" minOccurs="0" name="agencyUIDs" nillable="true" type="tns:ExclusionAgencyUIDType"/>
+     <xs:element maxOccurs="unbounded" minOccurs="0" name="reference" nillable="true" type="tns:ExclusionReferenceType"/>
+    </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="ExclusionReferenceType">
+    <xs:sequence>
+     <xs:element minOccurs="0" name="name" nillable="true" type="xs:string"/>
+     <xs:element minOccurs="0" name="type" nillable="true" type="xs:string"/>
+    </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="listOfExclusionsActionType">
+    <xs:sequence>
+     <xs:element maxOccurs="unbounded" minOccurs="0" name="action" nillable="true" type="tns:ExclusionActionType"/>
+    </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="ExclusionSearchCountResponseType">
+    <xs:sequence>
+     <xs:element minOccurs="0" name="transactionInformation" nillable="true" type="tns:exTransactionInfoType"/>
+     <xs:element minOccurs="0" name="counts" nillable="true" type="tns:ExclusionSearchCountResultType"/>
+    </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="ExclusionSearchCountResultType">
+    <xs:sequence>
+     <xs:element minOccurs="0" name="classifications" type="tns:ExclusionClassificationCategoryType"/>
+     <xs:element minOccurs="0" name="exclusionTypes" type="tns:ExclusionTypeCategoryType"/>
+     <xs:element minOccurs="0" name="exclusionPrograms" type="tns:ExclusionProgramCategoryType"/>
+    </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="ExclusionClassificationCategoryType">
+    <xs:sequence>
+     <xs:element minOccurs="0" name="individualCount" type="xs:int"/>
+     <xs:element minOccurs="0" name="firmCount" type="xs:int"/>
+     <xs:element minOccurs="0" name="vesselCount" type="xs:int"/>
+     <xs:element minOccurs="0" name="entityCount" type="xs:int"/>
+     <xs:element minOccurs="0" name="inactiveIndividualCount" type="xs:int"/>
+     <xs:element minOccurs="0" name="inactiveFirmCount" type="xs:int"/>
+     <xs:element minOccurs="0" name="inactiveVesselCount" type="xs:int"/>
+     <xs:element minOccurs="0" name="inactiveEentitiyCount" type="xs:int"/>
+    </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="ExclusionTypeCategoryType">
+    <xs:sequence>
+     <xs:element minOccurs="0" name="prohibitionCount" type="xs:int"/>
+     <xs:element minOccurs="0" name="ineligibleCompletedCount" type="xs:int"/>
+     <xs:element minOccurs="0" name="ineligiblePendingCount" type="xs:int"/>
+     <xs:element minOccurs="0" name="voluntaryCount" type="xs:int"/>
+     <xs:element minOccurs="0" name="inactiveProhibitionCount" type="xs:int"/>
+     <xs:element minOccurs="0" name="inactiveIneligibleCompletedCount" type="xs:int"/>
+     <xs:element minOccurs="0" name="inactiveIneligiblePendingCount" type="xs:int"/>
+     <xs:element minOccurs="0" name="inactiveVoluntaryCount" type="xs:int"/>
+    </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="ExclusionProgramCategoryType">
+    <xs:sequence>
+     <xs:element minOccurs="0" name="ReciprocalCount" type="xs:int"/>
+     <xs:element minOccurs="0" name="NonProcurementCount" type="xs:int"/>
+     <xs:element minOccurs="0" name="ProcurementCount" type="xs:int"/>
+     <xs:element minOccurs="0" name="inactiveReciprocalCount" type="xs:int"/>
+     <xs:element minOccurs="0" name="inactiveNonProcurementCount" type="xs:int"/>
+     <xs:element minOccurs="0" name="inactiveProcurementCount" type="xs:int"/>
+    </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="ExclusionHistoryResponseType">
+    <xs:sequence>
+     <xs:element minOccurs="0" name="transactionInformation" nillable="true" type="tns:exTransactionInfoType"/>
+     <xs:element name="counts" nillable="true" type="tns:ExclusionSearchHistoryCountResultType"/>
+    </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="ExclusionSearchHistoryCountResultType">
+    <xs:sequence>
+     <xs:element name="dateRange" nillable="true" type="tns:ExclusionDateRangeType"/>
+     <xs:element maxOccurs="unbounded" minOccurs="0" name="monthlyScale" nillable="true" type="xs:string"/>
+     <xs:element maxOccurs="unbounded" minOccurs="0" name="yearlyScale" nillable="true" type="xs:string"/>
+     <xs:element maxOccurs="unbounded" minOccurs="0" name="monthlyCounts" nillable="true" type="tns:HistoryCountDataPointType"/>
+     <xs:element maxOccurs="unbounded" minOccurs="0" name="yearlyCounts" nillable="true" type="tns:HistoryCountDataPointType"/>
+    </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="HistoryCountDataPointType">
+    <xs:sequence>
+     <xs:element name="date" nillable="true" type="xs:string"/>
+     <xs:element name="activeCount" nillable="true" type="xs:int"/>
+     <xs:element name="inactiveCount" nillable="true" type="xs:int"/>
+    </xs:sequence>
+   </xs:complexType>
+  </xs:schema>
+ </types>
+ <message name="ExclusionSearchServiceBean_doSearchRecentUpdatesResponse">
+  <part name="doSearchRecentUpdates" type="tns:ExclusionSearchResponseType"/>
+ </message>
+ <message name="ExclusionSearchServiceBean_doSearchRecentUpdates"/>
+ <message name="ExclusionSearchServiceBean_doExclusionHistoryResponse">
+  <part name="doExclusionHistory" type="tns:ExclusionHistoryResponseType"/>
+ </message>
+ <message name="ExclusionSearchServiceBean_doSearchResponse">
+  <part name="doSearch" type="tns:ExclusionSearchResponseType"/>
+ </message>
+ <message name="ExclusionSearchServiceBean_doSearchCountResponse">
+  <part name="doSearchCount" type="tns:ExclusionSearchCountResponseType"/>
+ </message>
+ <message name="ExclusionSearchServiceBean_doArchiveSearch">
+  <part name="exclusionSearchCriteria" type="tns:OperationSearchType"/>
+ </message>
+ <message name="SystemException">
+  <part element="tns:SystemException" name="SystemException"/>
+ </message>
+ <message name="ExclusionSearchServiceBean_doExclusionHistory">
+  <part name="exclusionSearchCriteria" type="tns:OperationExclusionHistoryType"/>
+ </message>
+ <message name="ExclusionSearchServiceBean_doArchiveSearchRecentUpdates"/>
+ <message name="ExclusionSearchServiceBean_doSearchCount">
+  <part name="exclusionSearchCriteria" type="tns:OperationSearchCountType"/>
+ </message>
+ <message name="ApplicationException">
+  <part element="tns:ApplicationException" name="ApplicationException"/>
+ </message>
+ <message name="ExclusionSearchServiceBean_doSearch">
+  <part name="exclusionSearchCriteria" type="tns:OperationSearchType"/>
+ </message>
+ <message name="ExclusionSearchServiceBean_doArchiveSearchRecentUpdatesResponse">
+  <part name="doArchiveSearchRecentUpdates" type="tns:ExclusionSearchResponseType"/>
+ </message>
+ <message name="ExclusionSearchServiceBean_doSsnSearch">
+  <part name="exclusionSearchCriteria" type="tns:OperationExSSNSearchType"/>
+ </message>
+ <message name="ExclusionSearchServiceBean_doSsnSearchResponse">
+  <part name="doSsnSearch" type="tns:ExclusionSearchResponseType"/>
+ </message>
+ <message name="ExclusionSearchServiceBean_doArchiveSearchResponse">
+  <part name="doArchiveSearch" type="tns:ExclusionSearchResponseType"/>
+ </message>
+ <portType name="ExclusionSearchServiceBean">
+  <operation name="doArchiveSearch" parameterOrder="exclusionSearchCriteria">
+   <input message="tns:ExclusionSearchServiceBean_doArchiveSearch"/>
+   <output message="tns:ExclusionSearchServiceBean_doArchiveSearchResponse"/>
+   <fault message="tns:SystemException" name="SystemException"/>
+   <fault message="tns:ApplicationException" name="ApplicationException"/>
+  </operation>
+  <operation name="doArchiveSearchRecentUpdates">
+   <input message="tns:ExclusionSearchServiceBean_doArchiveSearchRecentUpdates"/>
+   <output message="tns:ExclusionSearchServiceBean_doArchiveSearchRecentUpdatesResponse"/>
+   <fault message="tns:SystemException" name="SystemException"/>
+   <fault message="tns:ApplicationException" name="ApplicationException"/>
+  </operation>
+  <operation name="doExclusionHistory" parameterOrder="exclusionSearchCriteria">
+   <input message="tns:ExclusionSearchServiceBean_doExclusionHistory"/>
+   <output message="tns:ExclusionSearchServiceBean_doExclusionHistoryResponse"/>
+   <fault message="tns:SystemException" name="SystemException"/>
+   <fault message="tns:ApplicationException" name="ApplicationException"/>
+  </operation>
+  <operation name="doSearch" parameterOrder="exclusionSearchCriteria">
+   <input message="tns:ExclusionSearchServiceBean_doSearch"/>
+   <output message="tns:ExclusionSearchServiceBean_doSearchResponse"/>
+   <fault message="tns:SystemException" name="SystemException"/>
+   <fault message="tns:ApplicationException" name="ApplicationException"/>
+  </operation>
+  <operation name="doSearchCount" parameterOrder="exclusionSearchCriteria">
+   <input message="tns:ExclusionSearchServiceBean_doSearchCount"/>
+   <output message="tns:ExclusionSearchServiceBean_doSearchCountResponse"/>
+   <fault message="tns:SystemException" name="SystemException"/>
+   <fault message="tns:ApplicationException" name="ApplicationException"/>
+  </operation>
+  <operation name="doSearchRecentUpdates">
+   <input message="tns:ExclusionSearchServiceBean_doSearchRecentUpdates"/>
+   <output message="tns:ExclusionSearchServiceBean_doSearchRecentUpdatesResponse"/>
+   <fault message="tns:SystemException" name="SystemException"/>
+   <fault message="tns:ApplicationException" name="ApplicationException"/>
+  </operation>
+  <operation name="doSsnSearch" parameterOrder="exclusionSearchCriteria">
+   <input message="tns:ExclusionSearchServiceBean_doSsnSearch"/>
+   <output message="tns:ExclusionSearchServiceBean_doSsnSearchResponse"/>
+   <fault message="tns:SystemException" name="SystemException"/>
+   <fault message="tns:ApplicationException" name="ApplicationException"/>
+  </operation>
+ </portType>
+ <binding name="ExclusionSearchServiceBeanBinding" type="tns:ExclusionSearchServiceBean">
+  <soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
+  <operation name="doArchiveSearch">
+   <soap:operation soapAction=""/>
+   <input>
+    <soap:body namespace="http://www.sam.gov" use="literal"/>
+   </input>
+   <output>
+    <soap:body namespace="http://www.sam.gov" use="literal"/>
+   </output>
+   <fault name="SystemException">
+    <soap:fault name="SystemException" use="literal"/>
+   </fault>
+   <fault name="ApplicationException">
+    <soap:fault name="ApplicationException" use="literal"/>
+   </fault>
+  </operation>
+  <operation name="doArchiveSearchRecentUpdates">
+   <soap:operation soapAction=""/>
+   <input>
+    <soap:body namespace="http://www.sam.gov" use="literal"/>
+   </input>
+   <output>
+    <soap:body namespace="http://www.sam.gov" use="literal"/>
+   </output>
+   <fault name="SystemException">
+    <soap:fault name="SystemException" use="literal"/>
+   </fault>
+   <fault name="ApplicationException">
+    <soap:fault name="ApplicationException" use="literal"/>
+   </fault>
+  </operation>
+  <operation name="doExclusionHistory">
+   <soap:operation soapAction=""/>
+   <input>
+    <soap:body namespace="http://www.sam.gov" use="literal"/>
+   </input>
+   <output>
+    <soap:body namespace="http://www.sam.gov" use="literal"/>
+   </output>
+   <fault name="SystemException">
+    <soap:fault name="SystemException" use="literal"/>
+   </fault>
+   <fault name="ApplicationException">
+    <soap:fault name="ApplicationException" use="literal"/>
+   </fault>
+  </operation>
+  <operation name="doSearch">
+   <soap:operation soapAction=""/>
+   <input>
+    <soap:body namespace="http://www.sam.gov" use="literal"/>
+   </input>
+   <output>
+    <soap:body namespace="http://www.sam.gov" use="literal"/>
+   </output>
+   <fault name="SystemException">
+    <soap:fault name="SystemException" use="literal"/>
+   </fault>
+   <fault name="ApplicationException">
+    <soap:fault name="ApplicationException" use="literal"/>
+   </fault>
+  </operation>
+  <operation name="doSearchCount">
+   <soap:operation soapAction=""/>
+   <input>
+    <soap:body namespace="http://www.sam.gov" use="literal"/>
+   </input>
+   <output>
+    <soap:body namespace="http://www.sam.gov" use="literal"/>
+   </output>
+   <fault name="SystemException">
+    <soap:fault name="SystemException" use="literal"/>
+   </fault>
+   <fault name="ApplicationException">
+    <soap:fault name="ApplicationException" use="literal"/>
+   </fault>
+  </operation>
+  <operation name="doSearchRecentUpdates">
+   <soap:operation soapAction=""/>
+   <input>
+    <soap:body namespace="http://www.sam.gov" use="literal"/>
+   </input>
+   <output>
+    <soap:body namespace="http://www.sam.gov" use="literal"/>
+   </output>
+   <fault name="SystemException">
+    <soap:fault name="SystemException" use="literal"/>
+   </fault>
+   <fault name="ApplicationException">
+    <soap:fault name="ApplicationException" use="literal"/>
+   </fault>
+  </operation>
+  <operation name="doSsnSearch">
+   <soap:operation soapAction=""/>
+   <input>
+    <soap:body namespace="http://www.sam.gov" use="literal"/>
+   </input>
+   <output>
+    <soap:body namespace="http://www.sam.gov" use="literal"/>
+   </output>
+   <fault name="SystemException">
+    <soap:fault name="SystemException" use="literal"/>
+   </fault>
+   <fault name="ApplicationException">
+    <soap:fault name="ApplicationException" use="literal"/>
+   </fault>
+  </operation>
+ </binding>
+ <service name="ExclusionSearchServiceBeanService">
+  <port binding="tns:ExclusionSearchServiceBeanBinding" name="ExclusionSearchServiceBeanPort">
+   <soap:address location="https://gw.sam.gov/SAMWS/1.0/ExclusionSearch"/>
+  </port>
+ </service>
+</definitions>

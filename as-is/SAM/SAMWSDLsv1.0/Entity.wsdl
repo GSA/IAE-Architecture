@@ -1,0 +1,919 @@
+<definitions name="EntityManagementBeanService" targetNamespace="http://www.sam.gov" xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:ns1="https://orcaxml.bpn.gov/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://www.sam.gov" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+ <types>
+  <xs:schema targetNamespace="https://orcaxml.bpn.gov/" version="1.0" xmlns:tns="https://orcaxml.bpn.gov/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+   <xs:element name="ApplicationException" type="tns:ApplicationException"/>
+   <xs:element name="SystemException" type="tns:SystemException"/>
+   <xs:complexType name="ApplicationException">
+    <xs:sequence>
+     <xs:element minOccurs="0" name="errorCode" type="xs:string"/>
+     <xs:element minOccurs="0" name="message" type="xs:string"/>
+    </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="SystemException">
+    <xs:sequence>
+     <xs:element minOccurs="0" name="errorCode" type="xs:string"/>
+     <xs:element minOccurs="0" name="message" type="xs:string"/>
+    </xs:sequence>
+   </xs:complexType>
+  </xs:schema>
+  <xs:schema targetNamespace="http://www.sam.gov" version="1.0" xmlns:ns1="https://orcaxml.bpn.gov/" xmlns:tns="http://www.sam.gov" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+   <xs:import namespace="https://orcaxml.bpn.gov/"/>
+   <xs:element name="ApplicationException" nillable="true" type="ns1:ApplicationException"/>
+   <xs:element name="SystemException" nillable="true" type="ns1:SystemException"/>
+   <xs:complexType name="userAuthenticationKeyType">
+    <xs:sequence>
+     <xs:element name="userID" type="xs:string"/>
+     <xs:element name="password" type="xs:string"/>
+    </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="entitySearchCriteriaType">
+    <xs:sequence>
+     <xs:element minOccurs="0" name="DUNSNumber" nillable="true" type="xs:string"/>
+     <xs:element minOccurs="0" name="CAGECode" nillable="true" type="xs:string"/>
+     <xs:element minOccurs="0" name="taxpayerIdentificationNumber" nillable="true" type="xs:string"/>
+     <xs:element minOccurs="0" name="registrationStatus" nillable="true" type="xs:string"/>
+     <xs:element minOccurs="0" name="startDate" nillable="true" type="xs:string"/>
+     <xs:element minOccurs="0" name="endDate" nillable="true" type="xs:string"/>
+    </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="requestedData">
+    <xs:sequence>
+     <xs:element minOccurs="0" name="coreData" nillable="true" type="tns:YorNType"/>
+     <xs:element minOccurs="0" name="assertions" nillable="true" type="tns:YorNType"/>
+     <xs:element minOccurs="0" name="repsAndCerts" nillable="true" type="tns:YorNType"/>
+     <xs:element minOccurs="0" name="pointsOfContact" nillable="true" type="tns:YorNType"/>
+    </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="getEntities">
+    <xs:sequence>
+     <xs:element minOccurs="0" name="transactionInformation" nillable="true" type="tns:transactionInfoType"/>
+     <xs:element minOccurs="0" name="listOfEntities" nillable="true" type="tns:listOfEntitiesType"/>
+     <xs:element minOccurs="0" name="outputMessages" type="tns:outputMessagesType"/>
+     <xs:element minOccurs="0" name="confirmationNumber" type="xs:integer"/>
+    </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="transactionInfoType">
+    <xs:sequence>
+     <xs:element minOccurs="0" name="transactionStatus" nillable="true" type="xs:string"/>
+     <xs:element minOccurs="0" name="transactionMessage" nillable="true" type="xs:string"/>
+     <xs:element minOccurs="0" name="dataRetrievalTime" nillable="true" type="xs:string"/>
+     <xs:element minOccurs="0" name="numberOfRecordsReturned" nillable="true" type="xs:string"/>
+    </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="listOfEntitiesType">
+    <xs:sequence>
+     <xs:element maxOccurs="unbounded" minOccurs="0" name="entity" nillable="true" type="tns:entityType"/>
+    </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="entityType">
+    <xs:sequence>
+     <xs:element minOccurs="0" name="entityIdentification" nillable="true" type="tns:registrationInformationType"/>
+     <xs:element minOccurs="0" name="entityCoreData" type="tns:entityCoreDataType"/>
+     <xs:element minOccurs="0" name="coreData" nillable="true" type="tns:entityCoreDataType"/>
+     <xs:element minOccurs="0" name="assertions" nillable="true" type="tns:assertionsType"/>
+     <xs:element minOccurs="0" name="repsAndCerts" nillable="true" type="tns:repsAndCertsType"/>
+     <xs:element minOccurs="0" name="pointsOfContact" nillable="true" type="tns:pointsOfContactType"/>
+     <xs:element minOccurs="0" name="transactionInformation" type="tns:transactionInformationType"/>
+    </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="registrationInformationType">
+    <xs:sequence>
+     <xs:element minOccurs="0" name="DUNS" nillable="true" type="xs:string"/>
+     <xs:element minOccurs="0" name="DUNSPlus4" nillable="true" type="xs:string"/>
+     <xs:element minOccurs="0" name="CAGECode" nillable="true" type="xs:string"/>
+     <xs:element minOccurs="0" name="NCAGECode" nillable="true" type="xs:string"/>
+     <xs:element minOccurs="0" name="DODAAC" nillable="true" type="xs:string"/>
+     <xs:element minOccurs="0" name="legalBusinessName" type="xs:string"/>
+     <xs:element minOccurs="0" name="DBAName" type="xs:string"/>
+     <xs:element minOccurs="0" name="registrationPurpose" nillable="true" type="xs:string"/>
+     <xs:element minOccurs="0" name="registrationStatus" nillable="true" type="xs:string"/>
+     <xs:element minOccurs="0" name="registrationDate" nillable="true" type="xs:string"/>
+     <xs:element minOccurs="0" name="lastUpdateDate" nillable="true" type="xs:string"/>
+     <xs:element minOccurs="0" name="expirationDate" nillable="true" type="xs:string"/>
+     <xs:element minOccurs="0" name="renewalDate" type="xs:string"/>
+     <xs:element minOccurs="0" name="activationDate" type="xs:string"/>
+     <xs:element minOccurs="0" name="noPublicDisplay" nillable="true" type="xs:string"/>
+     <xs:element minOccurs="0" name="exclusionStatus" nillable="true" type="xs:string"/>
+    </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="entityCoreDataType">
+    <xs:sequence>
+     <xs:element minOccurs="0" name="DUNSInformation" type="tns:entityDUNSInformationType"/>
+     <xs:element minOccurs="0" name="federalHierarchy" type="tns:federalHierarchyInformationType"/>
+     <xs:element minOccurs="0" name="businessInformation" nillable="true" type="tns:businessInformationType"/>
+     <xs:element minOccurs="0" name="TINInformation" type="tns:TINInformationType"/>
+     <xs:element minOccurs="0" name="CAGEInformation" type="tns:CAGEInformationType"/>
+     <xs:element minOccurs="0" name="generalInformation" nillable="true" type="tns:generalInformationType"/>
+     <xs:element minOccurs="0" name="financialInformation" nillable="true" type="tns:financialInformationType"/>
+     <xs:element minOccurs="0" name="listOfExecutiveCompensationQuestions" type="tns:listOfExecutiveCompensationQuestionsType"/>
+     <xs:element minOccurs="0" name="listOfExecutiveCompensationInformation" type="tns:listOfExecutiveCompensationDetailsType"/>
+     <xs:element minOccurs="0" name="listOfProceedingsQuestions" type="tns:listOfProceedingsQuestionsType"/>
+     <xs:element minOccurs="0" name="listOfProceedingsInformation" type="tns:listOfProceedingsInformationType"/>
+    </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="entityDUNSInformationType">
+    <xs:sequence>
+     <xs:element minOccurs="0" name="DUNS" type="tns:DUNSType"/>
+     <xs:element minOccurs="0" name="hqParentDUNS" type="tns:DUNSType"/>
+     <xs:element minOccurs="0" name="domesticParentDUNS" type="tns:DUNSType"/>
+     <xs:element minOccurs="0" name="globalParentDUNS" type="tns:DUNSType"/>
+     <xs:element minOccurs="0" name="DNBMonitoring" type="tns:DNBMonitoringType"/>
+    </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="DUNSType">
+    <xs:sequence>
+     <xs:element minOccurs="0" name="DUNSNumber" nillable="true" type="xs:string"/>
+     <xs:element minOccurs="0" name="DNBLegalBusinessName" type="xs:string"/>
+     <xs:element minOccurs="0" name="legalBusinessName" nillable="true" type="xs:string"/>
+     <xs:element minOccurs="0" name="DBAName" type="xs:string"/>
+     <xs:element minOccurs="0" name="address" type="tns:addressTypes"/>
+     <xs:element minOccurs="0" name="phone" type="xs:string"/>
+    </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="addressTypes">
+    <xs:sequence>
+     <xs:element minOccurs="0" name="addressId" type="xs:integer"/>
+     <xs:element minOccurs="0" name="addressSource" type="xs:string"/>
+     <xs:element minOccurs="0" name="addressInfoName" type="xs:string"/>
+     <xs:element minOccurs="0" name="addressLine1" nillable="true" type="xs:string"/>
+     <xs:element minOccurs="0" name="addressLine2" nillable="true" type="xs:string"/>
+     <xs:element minOccurs="0" name="addressLine3" type="xs:string"/>
+     <xs:element minOccurs="0" name="addressLine4" type="xs:string"/>
+     <xs:element minOccurs="0" name="phoneNumber" type="xs:string"/>
+     <xs:element minOccurs="0" name="phoneNumberExt" type="xs:string"/>
+     <xs:element minOccurs="0" name="city" nillable="true" type="xs:string"/>
+     <xs:element minOccurs="0" name="county" type="xs:string"/>
+     <xs:element minOccurs="0" name="stateOrProvince" nillable="true" type="xs:string"/>
+     <xs:element minOccurs="0" name="ZIPCode" type="xs:string"/>
+     <xs:element minOccurs="0" name="ZIPCodePlus4" type="xs:string"/>
+     <xs:element minOccurs="0" name="country" type="xs:string"/>
+     <xs:element minOccurs="0" name="congressionalDistrict" type="xs:string"/>
+    </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="dnbaddressType">
+    <xs:complexContent>
+     <xs:extension base="tns:addressTypes">
+      <xs:sequence>
+       <xs:element minOccurs="0" name="postalCode" type="xs:string"/>
+      </xs:sequence>
+     </xs:extension>
+    </xs:complexContent>
+   </xs:complexType>
+   <xs:complexType name="DNBMonitoringType">
+    <xs:sequence>
+     <xs:element minOccurs="0" name="legalBusinessName" nillable="true" type="xs:string"/>
+     <xs:element minOccurs="0" name="DBAName" nillable="true" type="xs:string"/>
+     <xs:element minOccurs="0" name="corporationName" type="xs:string"/>
+     <xs:element minOccurs="0" name="outOfBusinessFlag" nillable="true" type="xs:boolean"/>
+     <xs:element minOccurs="0" name="monitoringStatus" nillable="true" type="xs:string"/>
+     <xs:element minOccurs="0" name="lastUpdated" nillable="true" type="xs:string"/>
+     <xs:element minOccurs="0" name="address" nillable="true" type="tns:dnbaddressType"/>
+    </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="federalHierarchyInformationType">
+    <xs:sequence>
+     <xs:element minOccurs="0" name="source" type="xs:string"/>
+     <xs:element minOccurs="0" name="hierarchyDepartmentCode" nillable="true" type="xs:string"/>
+     <xs:element minOccurs="0" name="hierarchyDepartmentName" nillable="true" type="xs:string"/>
+     <xs:element minOccurs="0" name="hierarchyAgencyCode" nillable="true" type="xs:string"/>
+     <xs:element minOccurs="0" name="hierarchyAgencyName" nillable="true" type="xs:string"/>
+     <xs:element minOccurs="0" name="hierarchyOfficeCode" nillable="true" type="xs:string"/>
+    </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="businessInformationType">
+    <xs:sequence>
+     <xs:element minOccurs="0" name="corporateURL" nillable="true" type="xs:string"/>
+     <xs:element minOccurs="0" name="companyDivisionName" nillable="true" type="xs:string"/>
+     <xs:element minOccurs="0" name="companyDivisionNumber" nillable="true" type="xs:string"/>
+     <xs:element minOccurs="0" name="businessStartDate" nillable="true" type="xs:string"/>
+     <xs:element minOccurs="0" name="fiscalYearEndCloseDate" nillable="true" type="xs:string"/>
+     <xs:element minOccurs="0" name="correspondenceFlag" nillable="true" type="xs:boolean"/>
+     <xs:element minOccurs="0" name="physicalAddress" nillable="true" type="tns:addressTypes"/>
+     <xs:element minOccurs="0" name="mailingAddress" nillable="true" type="tns:mailingAddressTypes"/>
+     <xs:element minOccurs="0" name="MPIN" type="xs:string"/>
+     <xs:element minOccurs="0" name="agencyBusinessPurpose" nillable="true" type="xs:string"/>
+     <xs:element minOccurs="0" name="organizationType" nillable="true" type="xs:string"/>
+    </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="mailingAddressTypes">
+    <xs:sequence>
+     <xs:element minOccurs="0" name="name" type="xs:string"/>
+     <xs:element minOccurs="0" name="address" nillable="true" type="tns:addressTypes"/>
+    </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="TINInformationType">
+    <xs:sequence>
+     <xs:element minOccurs="0" name="taxpayerIdentificationType" nillable="true" type="xs:string"/>
+     <xs:element minOccurs="0" name="taxpayerIdentificationNumber" nillable="true" type="xs:string"/>
+     <xs:element minOccurs="0" name="taxPayerName" type="xs:string"/>
+     <xs:element minOccurs="0" name="typeOfTax" type="xs:string"/>
+     <xs:element minOccurs="0" name="taxYear" type="xs:string"/>
+     <xs:element minOccurs="0" name="consentName" type="xs:string"/>
+     <xs:element minOccurs="0" name="consentTitle" type="xs:string"/>
+     <xs:element minOccurs="0" name="consentDate" type="xs:string"/>
+     <xs:element minOccurs="0" name="consentAddress" type="tns:addressType"/>
+    </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="addressType">
+    <xs:sequence>
+     <xs:element form="qualified" minOccurs="0" name="addressId" nillable="true" type="xs:integer"/>
+     <xs:element form="qualified" minOccurs="0" name="addressSource" nillable="true" type="xs:string"/>
+     <xs:element form="qualified" minOccurs="0" name="addressInfoName" nillable="true" type="xs:string"/>
+     <xs:element form="qualified" minOccurs="0" name="addressLine1" nillable="true" type="xs:string"/>
+     <xs:element form="qualified" minOccurs="0" name="addressLine2" nillable="true" type="xs:string"/>
+     <xs:element form="qualified" minOccurs="0" name="addressLine3" nillable="true" type="xs:string"/>
+     <xs:element form="qualified" minOccurs="0" name="addressLine4" nillable="true" type="xs:string"/>
+     <xs:element form="qualified" minOccurs="0" name="phoneNumber" nillable="true" type="xs:string"/>
+     <xs:element form="qualified" minOccurs="0" name="phoneNumberExt" nillable="true" type="xs:string"/>
+     <xs:element form="qualified" minOccurs="0" name="city" nillable="true" type="xs:string"/>
+     <xs:element form="qualified" minOccurs="0" name="county" nillable="true" type="xs:string"/>
+     <xs:element form="qualified" minOccurs="0" name="stateOrProvince" nillable="true" type="xs:string"/>
+     <xs:element form="qualified" minOccurs="0" name="ZIPCode" nillable="true" type="xs:string"/>
+     <xs:element form="qualified" minOccurs="0" name="country" nillable="true" type="xs:string"/>
+     <xs:element form="qualified" minOccurs="0" name="congressionalDistrict" nillable="true" type="xs:string"/>
+    </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="CAGEInformationType">
+    <xs:sequence>
+     <xs:element minOccurs="0" name="CAGECode" nillable="true" type="xs:string"/>
+     <xs:element minOccurs="0" name="NCAGECode" nillable="true" type="xs:string"/>
+    </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="generalInformationType">
+    <xs:sequence>
+     <xs:element minOccurs="0" name="stateOfIncorporation" nillable="true" type="xs:string"/>
+     <xs:element minOccurs="0" name="countryOfIncorporation" nillable="true" type="xs:string"/>
+     <xs:element minOccurs="0" name="companySecurityLevel" type="xs:integer"/>
+     <xs:element minOccurs="0" name="highestEmployeeSecurityLevel" type="xs:integer"/>
+     <xs:element minOccurs="0" name="listOfBusinessTypes" nillable="true" type="tns:listOfBusinessTypesType"/>
+     <xs:element minOccurs="0" name="listOfSBABusinessTypes" nillable="true" type="tns:listOfSBABusinessTypesType"/>
+    </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="listOfBusinessTypesType">
+    <xs:sequence>
+     <xs:element maxOccurs="unbounded" minOccurs="0" name="businessType" nillable="true" type="tns:businessTypeType"/>
+    </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="businessTypeType">
+    <xs:sequence>
+     <xs:element minOccurs="0" name="name" type="xs:string"/>
+     <xs:element minOccurs="0" name="code" nillable="true" type="xs:string"/>
+    </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="listOfSBABusinessTypesType">
+    <xs:sequence>
+     <xs:element maxOccurs="unbounded" minOccurs="0" name="SBABusinessType" nillable="true" type="tns:SBABusinessTypeType"/>
+    </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="SBABusinessTypeType">
+    <xs:sequence>
+     <xs:element minOccurs="0" name="name" nillable="true" type="xs:string"/>
+     <xs:element minOccurs="0" name="code" nillable="true" type="xs:string"/>
+     <xs:element minOccurs="0" name="expirationDate" nillable="true" type="xs:string"/>
+    </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="financialInformationType">
+    <xs:sequence>
+     <xs:element minOccurs="0" name="creditCardUsage" nillable="true" type="xs:string"/>
+     <xs:element minOccurs="0" name="delinquentFederalDebt" nillable="true" type="xs:string"/>
+     <xs:element minOccurs="0" name="listOfFinancialInformation" type="tns:listOfFinancialInformationType"/>
+    </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="listOfFinancialInformationType">
+    <xs:sequence>
+     <xs:element maxOccurs="unbounded" minOccurs="0" name="financialAccount" nillable="true" type="tns:financialAccountType"/>
+    </xs:sequence>
+    <xs:attribute name="primary" type="xs:string"/>
+   </xs:complexType>
+   <xs:complexType name="financialAccountType">
+    <xs:sequence>
+     <xs:element minOccurs="0" name="authorizationDate" nillable="true" type="xs:string"/>
+     <xs:element minOccurs="0" name="EFTInformation" nillable="true" type="tns:EFTInformationType"/>
+     <xs:element minOccurs="0" name="ACHInformation" nillable="true" type="tns:ACHInformationType"/>
+     <xs:element minOccurs="0" name="remittanceInformation" nillable="true" type="tns:remittanceInformationType"/>
+     <xs:element minOccurs="0" name="merchantID1" nillable="true" type="xs:string"/>
+     <xs:element minOccurs="0" name="merchantID2" nillable="true" type="xs:string"/>
+     <xs:element minOccurs="0" name="departmentCode" nillable="true" type="xs:string"/>
+     <xs:element minOccurs="0" name="agencyLocationCode" nillable="true" type="xs:string"/>
+     <xs:element minOccurs="0" name="disbursingOfficeSymbol" nillable="true" type="xs:string"/>
+     <xs:element minOccurs="0" name="accountingStation" nillable="true" type="xs:string"/>
+    </xs:sequence>
+    <xs:attribute name="id" type="xs:integer"/>
+   </xs:complexType>
+   <xs:complexType name="EFTInformationType">
+    <xs:sequence>
+     <xs:element minOccurs="0" name="accountType" nillable="true" type="xs:string"/>
+     <xs:element minOccurs="0" name="financialInstitute" nillable="true" type="xs:string"/>
+     <xs:element minOccurs="0" name="accountNumber" nillable="true" type="xs:string"/>
+     <xs:element minOccurs="0" name="ABARoutingNumber" nillable="true" type="xs:string"/>
+     <xs:element minOccurs="0" name="EFTWaiver" nillable="true" type="xs:string"/>
+     <xs:element minOccurs="0" name="lockboxNumber" nillable="true" type="xs:string"/>
+    </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="ACHInformationType">
+    <xs:sequence>
+     <xs:element minOccurs="0" name="USPhone" nillable="true" type="xs:string"/>
+     <xs:element minOccurs="0" name="nonUSPhone" nillable="true" type="xs:string"/>
+     <xs:element minOccurs="0" name="faxNumber" nillable="true" type="xs:string"/>
+     <xs:element minOccurs="0" name="email" nillable="true" type="xs:string"/>
+    </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="remittanceInformationType">
+    <xs:sequence>
+     <xs:element minOccurs="0" name="name" type="xs:string"/>
+     <xs:element minOccurs="0" name="address" nillable="true" type="tns:addressTypes"/>
+    </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="listOfExecutiveCompensationQuestionsType">
+    <xs:sequence>
+     <xs:element maxOccurs="unbounded" minOccurs="0" name="executiveCompensationQuestion" nillable="true" type="tns:simpleQuestionAnswerType"/>
+    </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="simpleQuestionAnswerType">
+    <xs:sequence>
+     <xs:element minOccurs="0" name="question" nillable="true" type="xs:string"/>
+     <xs:element minOccurs="0" name="answer" nillable="true" type="xs:string"/>
+    </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="listOfExecutiveCompensationDetailsType">
+    <xs:sequence>
+     <xs:element maxOccurs="unbounded" minOccurs="0" name="executiveCompensationDetail" nillable="true" type="tns:executiveDetailsType"/>
+    </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="executiveDetailsType">
+    <xs:sequence>
+     <xs:element minOccurs="0" name="name" nillable="true" type="xs:string"/>
+     <xs:element minOccurs="0" name="title" nillable="true" type="xs:string"/>
+     <xs:element minOccurs="0" name="compensation" nillable="true" type="xs:decimal"/>
+    </xs:sequence>
+    <xs:attribute name="id" type="xs:integer"/>
+   </xs:complexType>
+   <xs:complexType name="listOfProceedingsQuestionsType">
+    <xs:sequence>
+     <xs:element maxOccurs="unbounded" minOccurs="0" name="proceedingsQuestion" nillable="true" type="tns:simpleQuestionAnswerType"/>
+    </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="listOfProceedingsInformationType">
+    <xs:sequence>
+     <xs:element maxOccurs="unbounded" minOccurs="0" name="proceedingsInformation" nillable="true" type="tns:proceedingsInformationType"/>
+    </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="proceedingsInformationType">
+    <xs:sequence>
+     <xs:element minOccurs="0" name="proceedingId" type="xs:integer"/>
+     <xs:element minOccurs="0" name="proceedingType" nillable="true" type="xs:string"/>
+     <xs:element minOccurs="0" name="proceedingState" nillable="true" type="xs:string"/>
+     <xs:element minOccurs="0" name="instrumentNumber" nillable="true" type="xs:string"/>
+     <xs:element minOccurs="0" name="instrumentID" nillable="true" type="xs:string"/>
+     <xs:element minOccurs="0" name="description" nillable="true" type="xs:string"/>
+     <xs:element minOccurs="0" name="proceedingDate" nillable="true" type="xs:string"/>
+     <xs:element minOccurs="0" name="dispositionID" nillable="true" type="xs:string"/>
+    </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="assertionsType">
+    <xs:sequence>
+     <xs:element minOccurs="0" name="goodsAndServices" nillable="true" type="tns:goodsAndServicesType"/>
+     <xs:element minOccurs="0" name="sizeMetrics" type="tns:sizeMetricsType"/>
+     <xs:element minOccurs="0" name="EDIInformation" type="tns:EDIInformationType"/>
+     <xs:element minOccurs="0" name="disasterReliefData" nillable="true" type="tns:disasterReliefDataType"/>
+    </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="goodsAndServicesType">
+    <xs:sequence>
+     <xs:element minOccurs="0" name="listOfNAICS" nillable="true" type="tns:listOfNAICSType"/>
+     <xs:element minOccurs="0" name="listOfPSC" nillable="true" type="tns:listOfPSCType"/>
+    </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="listOfNAICSType">
+    <xs:sequence>
+     <xs:element maxOccurs="unbounded" minOccurs="0" name="NAICS" nillable="true" type="tns:NAICSCodeType"/>
+    </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="NAICSCodeType">
+    <xs:sequence>
+     <xs:element minOccurs="0" name="code" nillable="true" type="xs:string"/>
+     <xs:element minOccurs="0" name="primary" nillable="true" type="xs:string"/>
+     <xs:element minOccurs="0" name="description" type="xs:string"/>
+     <xs:element minOccurs="0" name="SBASmallBusiness" nillable="true" type="xs:string"/>
+     <xs:element minOccurs="0" name="exception" nillable="true" type="xs:string"/>
+     <xs:element minOccurs="0" name="location" type="xs:string"/>
+     <xs:element minOccurs="0" name="protest" type="xs:string"/>
+     <xs:element minOccurs="0" name="sizeChange" type="xs:string"/>
+    </xs:sequence>
+    <xs:attribute name="id" type="xs:integer"/>
+   </xs:complexType>
+   <xs:complexType name="listOfPSCType">
+    <xs:sequence>
+     <xs:element maxOccurs="unbounded" minOccurs="0" name="PSC" nillable="true" type="tns:PSCCodeType"/>
+    </xs:sequence>
+    <xs:attribute name="primary" type="xs:string"/>
+   </xs:complexType>
+   <xs:complexType name="PSCCodeType">
+    <xs:sequence>
+     <xs:element minOccurs="0" name="code" nillable="true" type="xs:string"/>
+     <xs:element minOccurs="0" name="description" type="xs:string"/>
+    </xs:sequence>
+    <xs:attribute name="id" type="xs:integer"/>
+   </xs:complexType>
+   <xs:complexType name="sizeMetricsType">
+    <xs:sequence>
+     <xs:element minOccurs="0" name="annualRevenue" type="xs:decimal"/>
+     <xs:element minOccurs="0" name="averageAnnualRevenue" type="xs:decimal"/>
+     <xs:element minOccurs="0" name="averageNumberOfEmployees" type="xs:integer"/>
+     <xs:element minOccurs="0" name="listOfSizeMetricDetails" nillable="true" type="tns:listOfSizeMetricDetailsType"/>
+    </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="listOfSizeMetricDetailsType">
+    <xs:sequence>
+     <xs:element maxOccurs="unbounded" minOccurs="0" name="sizeMetricDetails" nillable="true" type="tns:sizeMetricDetailsType"/>
+    </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="sizeMetricDetailsType">
+    <xs:sequence>
+     <xs:element minOccurs="0" name="employeesLocation" nillable="true" type="xs:string"/>
+     <xs:element minOccurs="0" name="receiptsLocation" nillable="true" type="xs:string"/>
+     <xs:element minOccurs="0" name="industrySpecificSizeMetrics" nillable="true" type="tns:industrySpecificSizeMetricsType"/>
+    </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="industrySpecificSizeMetricsType">
+    <xs:sequence>
+     <xs:element minOccurs="0" name="barrelsCapacity" nillable="true" type="xs:integer"/>
+     <xs:element minOccurs="0" name="totalAssets" nillable="true" type="xs:decimal"/>
+     <xs:element minOccurs="0" name="megawattHours" nillable="true" type="xs:decimal"/>
+    </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="EDIInformationType">
+    <xs:sequence>
+     <xs:element minOccurs="0" name="VANProvider" nillable="true" type="xs:string"/>
+     <xs:element minOccurs="0" name="ISAQualifier" nillable="true" type="xs:string"/>
+     <xs:element minOccurs="0" name="ISAIdentifier" nillable="true" type="xs:string"/>
+     <xs:element minOccurs="0" name="functionalGroupIdentifier" nillable="true" type="xs:string"/>
+     <xs:element minOccurs="0" name="requestFlag820s" nillable="true" type="xs:string"/>
+    </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="disasterReliefDataType">
+    <xs:sequence>
+     <xs:element minOccurs="0" name="listOfBondingLevels" nillable="true" type="tns:listOfBondingLevelsType"/>
+     <xs:element minOccurs="0" name="disasterReliefArea" nillable="true" type="tns:disasterReliefAreaType"/>
+    </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="listOfBondingLevelsType">
+    <xs:sequence>
+     <xs:element maxOccurs="unbounded" minOccurs="0" name="bondingLevel" nillable="true" type="tns:bondingLevelType"/>
+    </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="bondingLevelType">
+    <xs:sequence>
+     <xs:element minOccurs="0" name="type" nillable="true" type="xs:string"/>
+     <xs:element minOccurs="0" name="value" nillable="true" type="xs:string"/>
+    </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="disasterReliefAreaType">
+    <xs:sequence>
+     <xs:element minOccurs="0" name="type" nillable="true" type="xs:string"/>
+     <xs:element name="listOfGeographicAreaServed" type="tns:listOfGeographicAreaServedType"/>
+    </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="listOfGeographicAreaServedType">
+    <xs:sequence>
+     <xs:element maxOccurs="unbounded" minOccurs="0" name="geographicalAreaServed" nillable="true" type="tns:geographicalAreaServedType"/>
+    </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="geographicalAreaServedType">
+    <xs:sequence>
+     <xs:element minOccurs="0" name="Id" type="xs:integer"/>
+     <xs:element minOccurs="0" name="state" nillable="true" type="xs:string"/>
+     <xs:element minOccurs="0" name="county" nillable="true" type="xs:string"/>
+     <xs:element minOccurs="0" name="metropolitanStatisticalArea" nillable="true" type="xs:string"/>
+    </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="repsAndCertsType">
+    <xs:sequence>
+     <xs:element minOccurs="0" name="certifications" nillable="true" type="tns:certificationsType"/>
+     <xs:element minOccurs="0" name="qualifications" nillable="true" type="tns:qualificationsType"/>
+    </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="certificationsType">
+    <xs:sequence>
+     <xs:element minOccurs="0" name="FARResponses" nillable="true" type="tns:FARResponseType"/>
+     <xs:element minOccurs="0" name="DFARResponses" nillable="true" type="tns:FARResponseType"/>
+     <xs:element minOccurs="0" name="certificationURLs" nillable="true" type="tns:certificationURLsType"/>
+    </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="FARResponseType">
+    <xs:sequence>
+     <xs:element minOccurs="0" name="listOfProvisions" nillable="true" type="tns:listOfProvisionsType"/>
+    </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="listOfProvisionsType">
+    <xs:sequence>
+     <xs:element maxOccurs="unbounded" minOccurs="0" name="provision" nillable="true" type="tns:provisionType"/>
+    </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="provisionType">
+    <xs:sequence>
+     <xs:element minOccurs="0" name="id" nillable="true" type="xs:string"/>
+     <xs:element minOccurs="0" name="listOfAnswers" nillable="true" type="tns:listOfAnswerType"/>
+    </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="listOfAnswerType">
+    <xs:sequence>
+     <xs:element maxOccurs="unbounded" minOccurs="0" name="answer" nillable="true" type="tns:answerType"/>
+    </xs:sequence>
+   </xs:complexType>
+   <xs:complexType abstract="true" name="answerType">
+    <xs:sequence>
+     <xs:element minOccurs="0" name="answerID" nillable="true" type="xs:string"/>
+     <xs:element minOccurs="0" name="section" type="xs:string"/>
+    </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="naicsAnswerType">
+    <xs:complexContent>
+     <xs:extension base="tns:answerType">
+      <xs:sequence>
+       <xs:element minOccurs="0" name="listOfNAICS" nillable="true" type="tns:listOfNAICSType"/>
+      </xs:sequence>
+     </xs:extension>
+    </xs:complexContent>
+   </xs:complexType>
+   <xs:complexType name="freeTextAnswerType">
+    <xs:complexContent>
+     <xs:extension base="tns:answerType">
+      <xs:sequence>
+       <xs:element minOccurs="0" name="answerText" nillable="true" type="xs:string"/>
+      </xs:sequence>
+     </xs:extension>
+    </xs:complexContent>
+   </xs:complexType>
+   <xs:complexType name="businessObjectAnswerType">
+    <xs:complexContent>
+     <xs:extension base="tns:answerType">
+      <xs:sequence>
+       <xs:element maxOccurs="unbounded" minOccurs="0" name="businessObject" nillable="true" type="tns:businessObjectType"/>
+      </xs:sequence>
+     </xs:extension>
+    </xs:complexContent>
+   </xs:complexType>
+   <xs:complexType name="businessObjectType">
+    <xs:sequence>
+     <xs:element minOccurs="0" name="id" nillable="true" type="xs:string"/>
+     <xs:element maxOccurs="unbounded" minOccurs="0" name="businessObject" nillable="true" type="tns:businessObjectType"/>
+    </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="LaborSurplusConcern">
+    <xs:complexContent>
+     <xs:extension base="tns:businessObjectType">
+      <xs:sequence>
+       <xs:element name="surplusArea" type="xs:string"/>
+       <xs:element name="civilJurisdiction" type="xs:string"/>
+       <xs:element name="state" type="xs:string"/>
+      </xs:sequence>
+     </xs:extension>
+    </xs:complexContent>
+   </xs:complexType>
+   <xs:complexType name="ServicesRevenue">
+    <xs:complexContent>
+     <xs:extension base="tns:businessObjectType">
+      <xs:sequence>
+       <xs:element name="federalRevenueCode" type="xs:string"/>
+       <xs:element name="federalRevenueDescription" type="xs:string"/>
+       <xs:element name="nonFedRevenueCode" type="xs:string"/>
+       <xs:element name="nonFedRevenueDescription" type="xs:string"/>
+       <xs:element name="totalRevenueCode" type="xs:string"/>
+       <xs:element name="totalRevenueDescription" type="xs:string"/>
+      </xs:sequence>
+     </xs:extension>
+    </xs:complexContent>
+   </xs:complexType>
+   <xs:complexType name="Facility">
+    <xs:complexContent>
+     <xs:extension base="tns:businessObjectType">
+      <xs:sequence>
+       <xs:element minOccurs="0" name="address" type="xs:anyType"/>
+       <xs:element minOccurs="0" name="owner" type="xs:anyType"/>
+       <xs:element minOccurs="0" name="ownerAddress" type="xs:anyType"/>
+      </xs:sequence>
+     </xs:extension>
+    </xs:complexContent>
+   </xs:complexType>
+   <xs:complexType name="EndProduct">
+    <xs:complexContent>
+     <xs:extension base="tns:businessObjectType">
+      <xs:sequence>
+       <xs:element name="name" type="xs:string"/>
+       <xs:element minOccurs="0" name="country" type="xs:string"/>
+       <xs:element name="productType" type="tns:ProductType"/>
+      </xs:sequence>
+     </xs:extension>
+    </xs:complexContent>
+   </xs:complexType>
+   <xs:complexType name="Company">
+    <xs:complexContent>
+     <xs:extension base="tns:businessObjectType">
+      <xs:sequence>
+       <xs:element name="name" type="xs:string"/>
+       <xs:element minOccurs="0" name="tin" type="xs:string"/>
+       <xs:element minOccurs="0" name="duns" type="xs:int"/>
+       <xs:element minOccurs="0" name="yearEstablished" type="xs:int"/>
+      </xs:sequence>
+     </xs:extension>
+    </xs:complexContent>
+   </xs:complexType>
+   <xs:complexType name="PointOfContact">
+    <xs:complexContent>
+     <xs:extension base="tns:businessObjectType">
+      <xs:sequence>
+       <xs:element name="firstName" type="xs:string"/>
+       <xs:element minOccurs="0" name="mi" type="xs:string"/>
+       <xs:element minOccurs="0" name="lastName" type="xs:string"/>
+       <xs:element minOccurs="0" name="title" type="xs:string"/>
+       <xs:element name="telephoneNumber" type="xs:int"/>
+       <xs:element name="extension" type="xs:int"/>
+       <xs:element name="internationalNum" type="xs:int"/>
+      </xs:sequence>
+     </xs:extension>
+    </xs:complexContent>
+   </xs:complexType>
+   <xs:complexType name="Discipline">
+    <xs:complexContent>
+     <xs:extension base="tns:businessObjectType">
+      <xs:sequence>
+       <xs:element name="disciplineID" type="xs:string"/>
+       <xs:element name="firmNumOfEmployees" type="xs:int"/>
+       <xs:element name="branchNumOfEmployees" type="xs:int"/>
+       <xs:element name="disciplineDescription" type="xs:string"/>
+      </xs:sequence>
+     </xs:extension>
+    </xs:complexContent>
+   </xs:complexType>
+   <xs:complexType name="ArchitectExperience">
+    <xs:complexContent>
+     <xs:extension base="tns:businessObjectType">
+      <xs:sequence>
+       <xs:element name="experienceCode" type="xs:string"/>
+       <xs:element name="experienceDescription" type="xs:string"/>
+       <xs:element name="annualAvgRevenueCode" type="xs:string"/>
+       <xs:element name="annualAvgRevenueDescription" type="xs:string"/>
+      </xs:sequence>
+     </xs:extension>
+    </xs:complexContent>
+   </xs:complexType>
+   <xs:complexType name="Address">
+    <xs:complexContent>
+     <xs:extension base="tns:businessObjectType">
+      <xs:sequence>
+       <xs:element minOccurs="0" name="street1" type="xs:string"/>
+       <xs:element minOccurs="0" name="street2" type="xs:string"/>
+       <xs:element minOccurs="0" name="city" type="xs:string"/>
+       <xs:element minOccurs="0" name="postalCode" type="xs:string"/>
+       <xs:element minOccurs="0" name="state" type="xs:string"/>
+       <xs:element minOccurs="0" name="country" type="xs:string"/>
+      </xs:sequence>
+     </xs:extension>
+    </xs:complexContent>
+   </xs:complexType>
+   <xs:complexType name="Person">
+    <xs:complexContent>
+     <xs:extension base="tns:businessObjectType">
+      <xs:sequence>
+       <xs:element name="firstName" type="xs:string"/>
+       <xs:element minOccurs="0" name="mi" type="xs:string"/>
+       <xs:element minOccurs="0" name="lastName" type="xs:string"/>
+       <xs:element minOccurs="0" name="title" type="xs:string"/>
+      </xs:sequence>
+     </xs:extension>
+    </xs:complexContent>
+   </xs:complexType>
+   <xs:complexType name="Organization">
+    <xs:complexContent>
+     <xs:extension base="tns:businessObjectType">
+      <xs:sequence>
+       <xs:element minOccurs="0" name="organizationType" type="xs:string"/>
+      </xs:sequence>
+     </xs:extension>
+    </xs:complexContent>
+   </xs:complexType>
+   <xs:complexType name="FSCInfo">
+    <xs:complexContent>
+     <xs:extension base="tns:businessObjectType">
+      <xs:sequence>
+       <xs:element name="placeOfManufacture" type="xs:string"/>
+       <xs:element name="fscCode" type="xs:string"/>
+      </xs:sequence>
+     </xs:extension>
+    </xs:complexContent>
+   </xs:complexType>
+   <xs:complexType name="ForeignGovtControl">
+    <xs:complexContent>
+     <xs:extension base="tns:businessObjectType">
+      <xs:sequence>
+       <xs:element form="qualified" name="name" type="xs:anyType"/>
+       <xs:element name="interestDescription" type="xs:anyType"/>
+       <xs:element name="ownershipPercentageType" type="xs:anyType"/>
+       <xs:element minOccurs="0" name="address" type="xs:anyType"/>
+       <xs:element name="govtCountry" type="xs:string"/>
+      </xs:sequence>
+     </xs:extension>
+    </xs:complexContent>
+   </xs:complexType>
+   <xs:complexType name="SocioEconomic">
+    <xs:complexContent>
+     <xs:extension base="tns:businessObjectType">
+      <xs:sequence>
+       <xs:element minOccurs="0" name="businessType" type="xs:string"/>
+       <xs:element minOccurs="0" name="value" type="xs:string"/>
+      </xs:sequence>
+     </xs:extension>
+    </xs:complexContent>
+   </xs:complexType>
+   <xs:complexType name="TINHolderStatus">
+    <xs:complexContent>
+     <xs:extension base="tns:businessObjectType">
+      <xs:sequence>
+       <xs:element minOccurs="0" name="status" type="xs:string"/>
+      </xs:sequence>
+     </xs:extension>
+    </xs:complexContent>
+   </xs:complexType>
+   <xs:complexType name="DisciplineInfo">
+    <xs:complexContent>
+     <xs:extension base="tns:businessObjectType">
+      <xs:sequence>
+       <xs:element name="displineID" type="xs:string"/>
+       <xs:element name="firmNumOfEmployees" type="xs:int"/>
+       <xs:element name="branchNumOfEmployees" type="xs:int"/>
+       <xs:element name="disciplineDescription" type="xs:string"/>
+      </xs:sequence>
+     </xs:extension>
+    </xs:complexContent>
+   </xs:complexType>
+   <xs:complexType name="certificationURLsType">
+    <xs:sequence>
+     <xs:element minOccurs="0" name="PDFURL" nillable="true" type="xs:string"/>
+     <xs:element minOccurs="0" name="HtmlURL" nillable="true" type="xs:string"/>
+    </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="qualificationsType">
+    <xs:sequence>
+     <xs:element minOccurs="0" name="architectEngineerResponses" nillable="true" type="tns:FARResponseType"/>
+     <xs:element minOccurs="0" name="qualificationURLs" nillable="true" type="tns:certificationURLsType"/>
+    </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="pointsOfContactType">
+    <xs:sequence>
+     <xs:element minOccurs="0" name="listOfPOCs" nillable="true" type="tns:listOfPOCsType"/>
+    </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="listOfPOCsType">
+    <xs:sequence>
+     <xs:element maxOccurs="unbounded" minOccurs="0" name="governmentBusinessPOC" nillable="true" type="tns:POCTypes"/>
+     <xs:element maxOccurs="unbounded" minOccurs="0" name="altGovernmentBusinessPOC" nillable="true" type="tns:POCTypes"/>
+     <xs:element maxOccurs="unbounded" name="pastPerformancePOC" nillable="true" type="tns:POCTypes"/>
+     <xs:element maxOccurs="unbounded" minOccurs="0" name="altPastPerformancePOC" nillable="true" type="tns:POCTypes"/>
+     <xs:element maxOccurs="unbounded" minOccurs="0" name="electronicBusinessPOC" nillable="true" type="tns:POCTypes"/>
+     <xs:element maxOccurs="unbounded" minOccurs="0" name="altElectronicBusinessPOC" nillable="true" type="tns:POCTypes"/>
+     <xs:element maxOccurs="unbounded" minOccurs="0" name="partyPerformingCertificationPOC" nillable="true" type="tns:POCTypes"/>
+     <xs:element maxOccurs="unbounded" minOccurs="0" name="soleProprietorshipPOC" nillable="true" type="tns:POCTypes"/>
+     <xs:element maxOccurs="unbounded" minOccurs="0" name="accountsReceivablePOC" nillable="true" type="tns:POCTypes"/>
+     <xs:element maxOccurs="unbounded" minOccurs="0" name="accountsPayablePOC" nillable="true" type="tns:POCTypes"/>
+     <xs:element maxOccurs="unbounded" minOccurs="0" name="EDIPOC" type="tns:POCTypes"/>
+     <xs:element maxOccurs="unbounded" minOccurs="0" name="proceedingsPOC" nillable="true" type="tns:POCTypes"/>
+     <xs:element maxOccurs="unbounded" minOccurs="0" name="altProceedingsPOC" nillable="true" type="tns:POCTypes"/>
+     <xs:element maxOccurs="unbounded" minOccurs="0" name="eliminationsPOC" nillable="true" type="tns:POCTypes"/>
+     <xs:element maxOccurs="unbounded" minOccurs="0" name="salesPOC" nillable="true" type="tns:POCTypes"/>
+    </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="POCTypes">
+    <xs:sequence>
+     <xs:element minOccurs="0" name="POCId" type="xs:integer"/>
+     <xs:element minOccurs="0" name="pocName" type="xs:string"/>
+     <xs:element minOccurs="0" name="firstName" nillable="true" type="xs:string"/>
+     <xs:element minOccurs="0" name="middleInitial" nillable="true" type="xs:string"/>
+     <xs:element minOccurs="0" name="lastName" nillable="true" type="xs:string"/>
+     <xs:element minOccurs="0" name="title" nillable="true" type="xs:string"/>
+     <xs:element minOccurs="0" name="USPhone" nillable="true" type="xs:string"/>
+     <xs:element minOccurs="0" name="USPhoneExtension" nillable="true" type="xs:string"/>
+     <xs:element minOccurs="0" name="nonUSPhone" nillable="true" type="xs:string"/>
+     <xs:element minOccurs="0" name="fax" nillable="true" type="xs:string"/>
+     <xs:element minOccurs="0" name="email" nillable="true" type="xs:string"/>
+     <xs:element minOccurs="0" name="address" type="tns:addressTypes"/>
+     <xs:element minOccurs="0" name="notes" type="xs:string"/>
+    </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="transactionInformationType">
+    <xs:sequence>
+     <xs:element form="qualified" minOccurs="0" name="createDate" nillable="true" type="xs:string"/>
+     <xs:element form="qualified" minOccurs="0" name="updateDate" nillable="true" type="xs:string"/>
+     <xs:element form="qualified" minOccurs="0" name="createUser" nillable="true" type="xs:integer"/>
+     <xs:element form="qualified" minOccurs="0" name="updateUser" nillable="true" type="xs:integer"/>
+     <xs:element form="qualified" minOccurs="0" name="legacyCreateDate" nillable="true" type="xs:string"/>
+     <xs:element form="qualified" minOccurs="0" name="legacyUpdateDate" nillable="true" type="xs:string"/>
+     <xs:element form="qualified" minOccurs="0" name="legacyCreateUser" nillable="true" type="xs:integer"/>
+     <xs:element form="qualified" minOccurs="0" name="legacyUpdateUser" nillable="true" type="xs:integer"/>
+     <xs:element form="qualified" minOccurs="0" name="deleteDate" nillable="true" type="xs:string"/>
+     <xs:element form="qualified" minOccurs="0" name="deleteFlag" nillable="true" type="xs:string"/>
+    </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="outputMessagesType">
+    <xs:sequence>
+     <xs:element minOccurs="0" name="listOfErrors" type="tns:listOfErrorsType"/>
+     <xs:element minOccurs="0" name="listOfWarnings" type="tns:listOfWarningsType"/>
+     <xs:element minOccurs="0" name="listOfInfoMessages" type="tns:listOfInfoMessagesType"/>
+    </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="listOfErrorsType">
+    <xs:sequence>
+     <xs:element maxOccurs="unbounded" minOccurs="0" name="error" nillable="true" type="tns:errorType"/>
+    </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="errorType">
+    <xs:sequence>
+     <xs:element maxOccurs="unbounded" minOccurs="0" name="elementName" nillable="true" type="xs:string"/>
+     <xs:element minOccurs="0" name="errorCode" type="xs:string"/>
+     <xs:element name="errorMessage" type="xs:string"/>
+    </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="listOfWarningsType">
+    <xs:sequence>
+     <xs:element form="qualified" maxOccurs="unbounded" minOccurs="0" name="warning" type="tns:warningType"/>
+    </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="warningType">
+    <xs:sequence>
+     <xs:element form="qualified" maxOccurs="unbounded" minOccurs="0" name="elementName" nillable="true" type="xs:string"/>
+     <xs:element form="qualified" minOccurs="0" name="warningCode" nillable="true" type="xs:string"/>
+     <xs:element form="qualified" name="warningMessage" type="xs:string"/>
+    </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="listOfInfoMessagesType">
+    <xs:sequence>
+     <xs:element form="qualified" maxOccurs="unbounded" minOccurs="0" name="info" type="tns:infoType"/>
+    </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="infoType">
+    <xs:sequence>
+     <xs:element form="qualified" maxOccurs="unbounded" minOccurs="0" name="elementName" type="xs:string"/>
+     <xs:element form="qualified" minOccurs="0" name="infoCode" nillable="true" type="xs:string"/>
+     <xs:element form="qualified" name="infoMessage" type="xs:string"/>
+    </xs:sequence>
+   </xs:complexType>
+   <xs:simpleType name="YorNType">
+    <xs:restriction base="xs:string">
+     <xs:enumeration value="Y"/>
+     <xs:enumeration value="N"/>
+    </xs:restriction>
+   </xs:simpleType>
+   <xs:simpleType name="ProductType">
+    <xs:restriction base="xs:string">
+     <xs:enumeration value="FOREIGN_PRODUCT"/>
+     <xs:enumeration value="RIGHTS_SOFTWARE"/>
+    </xs:restriction>
+   </xs:simpleType>
+  </xs:schema>
+ </types>
+ <message name="ApplicationException">
+  <part element="tns:ApplicationException" name="ApplicationException"/>
+ </message>
+ <message name="EntityManagementBean_getEntitiesResponse">
+  <part name="getEntities" type="tns:getEntities"/>
+ </message>
+ <message name="SystemException">
+  <part element="tns:SystemException" name="SystemException"/>
+ </message>
+ <message name="EntityManagementBean_getEntities">
+  <part name="authenticationKey" type="tns:userAuthenticationKeyType"/>
+  <part name="entitySearchCriteria" type="tns:entitySearchCriteriaType"/>
+  <part name="requestedData" type="tns:requestedData"/>
+ </message>
+ <portType name="EntityManagementBean">
+  <operation name="getEntities" parameterOrder="authenticationKey entitySearchCriteria requestedData">
+   <input message="tns:EntityManagementBean_getEntities"/>
+   <output message="tns:EntityManagementBean_getEntitiesResponse"/>
+   <fault message="tns:SystemException" name="SystemException"/>
+   <fault message="tns:ApplicationException" name="ApplicationException"/>
+  </operation>
+ </portType>
+ <binding name="EntityManagementBeanBinding" type="tns:EntityManagementBean">
+  <soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
+  <operation name="getEntities">
+   <soap:operation soapAction=""/>
+   <input>
+    <soap:body namespace="http://www.sam.gov" use="literal"/>
+   </input>
+   <output>
+    <soap:body namespace="http://www.sam.gov" use="literal"/>
+   </output>
+   <fault name="SystemException">
+    <soap:fault name="SystemException" use="literal"/>
+   </fault>
+   <fault name="ApplicationException">
+    <soap:fault name="ApplicationException" use="literal"/>
+   </fault>
+  </operation>
+ </binding>
+ <service name="EntityManagementBeanService">
+  <port binding="tns:EntityManagementBeanBinding" name="EntityManagementBeanPort">
+   <soap:address location="https://gw.sam.gov/SAMWS/1.0/Entity"/>
+  </port>
+ </service>
+</definitions>
